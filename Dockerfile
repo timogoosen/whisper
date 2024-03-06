@@ -8,7 +8,7 @@ WORKDIR /code
 COPY requirements.txt /code/
 
 RUN apk --no-cache add --update g++ git python3-dev wget py3-pip \ 
-    gcc python3 inux-headers libffi-dev openssl-dev \
+    gcc python3 linux-headers libffi-dev openssl-dev \
     py3-setuptools openssl ca-certificates make python3-dev
     
 RUN pip3 install --upgrade pip 
