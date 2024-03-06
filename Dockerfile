@@ -1,17 +1,24 @@
-FROM python:3
+FROM alpine:3.11
+
+# ENV VERSION="1.29.2547.95"
+ARG PRITUNL_VERSION="*"
 
 WORKDIR /code
 
-COPY . .
+COPY requirements.txt /code/
 
-# Set the Chrome repo.
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+RUN apk --no-cache add --update go git bzr wget py3-pip \ 
+    gcc python python-dev musl-dev linux-headers libffi-dev openssl-dev \
+    py3-setuptools openssl procps ca-certificates make
+    
+RUN pip3 install --upgrade pip 
 
-# Install Chrome.
-RUN apt-get update && apt-get -y install ffmpeg \
- && pip install --upgrade --no-deps --force-reinstall git+https://github.com/openai/whisper.git
 
-# Install dependencies
+
+RUN pip3 install -r requirements.txt \
+    ##&& pip install -r requirements.txt 
+    && pip3 install --upgrade --no-deps --force-reinstall git+https://github.com/openai/whisper.git
+    #&& python setup.py install \
+
 
 
