@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.16
 
 # ENV VERSION="1.29.2547.95"
 # ARG PRITUNL_VERSION="*"
